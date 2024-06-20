@@ -1,3 +1,3 @@
 <template>
-  <h1>Travels</h1>
+  <h1>Travels list</h1>
 </template>
