@@ -24,3 +24,7 @@ export const fetchTravelDetails = async (id: string) => {
   const { data } = await api.get<Travel>(`/travels/${id}`);
   return data;
 };
+
+export const deleteTravel = (id: string) => {
+  return api.delete(`/travels/${id}`);
+}

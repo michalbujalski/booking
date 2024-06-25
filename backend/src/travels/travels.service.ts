@@ -55,4 +55,8 @@ export class TravelsService {
     }
     Object.assign(travel, data);
   }
+
+  delete(id: string) {
+    this.travels = this.travels.filter((travel) => travel.id !== id);
+  }
 }

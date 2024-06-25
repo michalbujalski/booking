@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   NotFoundException,
@@ -40,5 +41,10 @@ export class TravelsController {
   @Get('/')
   getAll() {
     return this.travelsService.getAll();
+  }
+
+  @Delete('/:id')
+  delete(@Param('id') id: string) {
+    this.travelsService.delete(id);
   }
 }
