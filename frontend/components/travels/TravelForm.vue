@@ -7,10 +7,10 @@
       <form action="." @submit.prevent="handleSubmit">
         <div class="grid-cols-1 md:grid-cols-2 grid gap-4">
           <Input
-            v-model="travelName"
+            v-model="title"
             label="Travel name"
             placeholder=""
-            :error="errors.travelName"
+            :error="errors.title"
           />
           <div class="grid-cols-2 grid gap-4 md:mt-0 mt-2">
             <DatePicker
@@ -68,7 +68,7 @@ import SubmitButton from '@/components/form/SubmitButton.vue';
 import FileUploadButton from '@/components/form/FileUploadButton.vue';
 import { ValidationError } from 'yup';
 
-const travelName = ref('');
+const title = ref('');
 const description = ref('');
 const price = ref(100);
 const departureDate = ref(new Date().toISOString());
@@ -79,7 +79,7 @@ const props = defineProps({
   initValues: {
     type: Object,
     default: () => ({
-      travelName: '',
+      title: '',
       description: '',
       price: 100,
       departureDate: new Date(),
@@ -92,7 +92,7 @@ const props = defineProps({
 watch(
   () => props,
   (newProps) => {
-    travelName.value = newProps.initValues.travelName;
+    title.value = newProps.initValues.title;
     description.value = newProps.initValues.description;
     price.value = newProps.initValues.price;
     departureDate.value = newProps.initValues.departureDate;
@@ -103,7 +103,7 @@ watch(
 );
 
 const errors = ref<{
-  travelName?: string;
+  title?: string;
   description?: string;
   price?: string;
   departureDate?: string;
@@ -114,7 +114,7 @@ const errors = ref<{
 const emit = defineEmits(['submit']);
 
 const schema = yup.object().shape({
-  travelName: yup.string().required('Travel name is required'),
+  title: yup.string().required('Travel title is required'),
   description: yup.string().required('Description is required'),
   price: yup
     .number()
@@ -127,12 +127,12 @@ const schema = yup.object().shape({
 });
 
 watch(
-  [travelName, description, price, departureDate, returnDate, image],
-  ([travelName, description, price, departureDate, returnDate, image]) => {
+  [title, description, price, departureDate, returnDate, image],
+  ([title, description, price, departureDate, returnDate, image]) => {
     try {
       schema.validateSync(
         {
-          travelName,
+          title,
           description,
           price,
           departureDate,
@@ -156,7 +156,7 @@ watch(
 
 const formInvalid = computed(() => {
   return (
-    !travelName.value ||
+    !title.value ||
     !description.value ||
     !price.value ||
     !departureDate.value ||
@@ -170,7 +170,7 @@ const onFileChange = (newImg: String) => {
 
 const handleSubmit = async () => {
   emit('submit', {
-    name: travelName.value,
+    title: title.value,
     description: description.value,
     price: price.value,
     departureDate: departureDate.value,
