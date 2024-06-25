@@ -15,6 +15,16 @@ export class TravelsService {
       price: 1299.01,
       image: null,
     },
+    {
+      id: '2',
+      title: 'New York',
+      rating: 4.3,
+      description: 'The big apple',
+      departureDate: '2024-08-01',
+      returnDate: '2024-08-15',
+      price: 1499.01,
+      image: null,
+    }
   ];
 
   create(travelDto: CreateTravelDto): string {
@@ -38,8 +48,8 @@ export class TravelsService {
   }
 
   update(id: string, data: Partial<CreateTravelDto>) {
-    let travel = this.getDetails(id);
-    console.log(travel,data);
+    const travel = this.getDetails(id);
+    console.log(travel, data);
     if (!travel) {
       return;
     }
