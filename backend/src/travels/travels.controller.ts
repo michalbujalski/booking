@@ -1,20 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { TravelsService } from './travels.service';
 
 @Controller('travels')
 export class TravelsController {
+  constructor(private travelsService: TravelsService) {}
+  @Post('/')
+  @HttpCode(201)
+  create(@Body() data) {
+    const newId = this.travelsService.create(data);
+    return {
+      id: newId,
+    };
+  }
   @Get('/')
   getAll() {
-    return [
-      {
-        id: 1,
-        title: 'Paris',
-        description: 'The city of love',
-      },
-      {
-        id: 2,
-        title: 'New York',
-        description: 'The city that never sleeps',
-      },
-    ];
+    return this.travelsService.getAll();
   }
 }
