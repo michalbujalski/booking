@@ -1,16 +1,35 @@
+<template>
+  <div>
+    <h1>Travels list</h1>
+    <div v-if="status === 'success'">
+      <ul>
+        <li v-for="travel in data" :key="travel.id">
+          <nuxt-link :to="`/travels/${travel.id}`">{{
+            travel.title
+          }}</nuxt-link>
+        </li>
+      </ul>
+    </div>
+    <div v-else-if="status === 'pending'">Loading...</div>
+  </div>
+</template>
 <script setup lang="ts">
-import { onMounted, watch } from 'vue';
-import { useFetch } from '@vueuse/core';
+import { watch } from 'vue';
+import { fetchTravels } from '../../api';
 
+const { data, status, error } = await useAsyncData(
+  'travelslist',
+  async () => fetchTravels(),
+  {
+    server: false,
+  }
+);
 
-const {data, error} = useFetch('http://localhost:3333/travels')
+watch(status, () => {
+  console.log(status.value);
+});
 
 watch(data, () => {
-  console.log(data.value)
-})
-
+  console.log(data);
+});
 </script>
-
-<template>
-  <h1>Travels list</h1>
-</template>

@@ -29,12 +29,20 @@ export class TravelsService {
 
   getDetails(id: string): Travel {
     return this.travels.find((travel) => {
-      console.log(travel.id, id, travel.id === id);
       return travel.id === id;
     });
   }
 
   getAll() {
     return this.travels;
+  }
+
+  update(id: string, data: Partial<CreateTravelDto>) {
+    let travel = this.getDetails(id);
+    console.log(travel,data);
+    if (!travel) {
+      return;
+    }
+    Object.assign(travel, data);
   }
 }

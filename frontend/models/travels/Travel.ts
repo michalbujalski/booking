@@ -5,6 +5,6 @@ export interface Travel {
   departureDate: string;
   returnDate: string;
   price: number;
-  image: string;
+  image: string | null;
   rating: number;
 }

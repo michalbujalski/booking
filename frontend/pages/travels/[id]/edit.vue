@@ -1,9 +1,31 @@
 <template>
-  <div>Travels edit {{ route.params.id }}</div>
+  <div class="w-full flex flex-col justify-items-center items-center">
+    <TravelForm
+      formTitle="Edit travel"
+      @submit="handleSubmit"
+      :initValues="initValues"
+      submitLabel="Save changes"
+    />
+  </div>
 </template>
 <script setup lang="ts">
-import { fetchTravelDetails } from '../../../api';
+import TravelForm from '@/components/travels/TravelForm.vue';
+import type { Travel } from '@/models/travels/Travel';
+import { fetchTravelDetails, updateTravel } from '../../../api';
+
 const route = useRoute();
+const router = useRouter();
+const travelId = computed(() => route.params.id);
+const initValues = ref<Travel>({
+  id: '',
+  title: '',
+  description: '',
+  price: 0,
+  departureDate: new Date().toISOString(),
+  returnDate: new Date().toISOString(),
+  rating: 0,
+  image: null,
+});
 
 const { data, status, error } = await useAsyncData(
   'travelDetails',
@@ -15,4 +37,24 @@ const { data, status, error } = await useAsyncData(
     watch: [route],
   }
 );
+watch(data, (newData) => {
+  if (!newData) {
+    return;
+  }
+  console.log(newData)
+  initValues.value = newData;
+});
+
+const handleSubmit = async (e) => {
+  const { title, description, price, departureDate, returnDate, image } = e;
+  await updateTravel(travelId.value,{
+    title,
+    description,
+    price,
+    departureDate,
+    returnDate,
+    image,
+  });
+  router.replace(`/travels/${travelId.value}/edit`);
+};
 </script>

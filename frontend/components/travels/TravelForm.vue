@@ -1,63 +1,61 @@
 <template>
-  <div class="w-full flex flex-col justify-items-center items-center">
-    <div
-      class="w-8/12 bg-white shadow-md flex flex-col justify-items-center items-center py-4 px-4 md:px-8 mt-8"
-    >
-      <h1 class="text-lg uppercase my-8">Travels create</h1>
-      <form action="." @submit.prevent="handleSubmit">
-        <div class="grid-cols-1 md:grid-cols-2 grid gap-4">
-          <Input
-            v-model="title"
-            label="Travel name"
-            placeholder=""
-            :error="errors.title"
-          />
-          <div class="grid-cols-2 grid gap-4 md:mt-0 mt-2">
-            <DatePicker
-              v-model="departureDate"
-              label="Departure date"
-              :error="errors.departureDate"
-            />
-            <DatePicker
-              v-model="returnDate"
-              label="Return date"
-              :error="errors.returnDate"
-            />
-          </div>
-          <Input
-            v-model="description"
-            label="Description"
-            class="mt-2"
-            placeholder=""
-            required
-            :text="true"
-            :error="errors.description"
-          />
-          <Input
-            v-model="price"
-            label="Price"
-            class="mt-2"
-            placeholder=""
-            required
-            :number="true"
-            :error="errors.price"
-          />
-        </div>
-        <FileUploadButton
-          @on-file-change="onFileChange"
-          class="mt-2"
-          :error="errors.image"
+  <Card>
+    <template #title>
+      {{ formTitle }}
+    </template>
+    <form action="." @submit.prevent="handleSubmit">
+      <div class="grid-cols-1 md:grid-cols-2 grid gap-4">
+        <Input
+          v-model="title"
+          label="Travel name"
+          placeholder=""
+          :error="errors.title"
         />
-        <div class="w-full flex justify-end mt-2">
-          <SubmitButton
-            :disabled="formInvalid"
-            label="Create travel"
-            class="self-end"
+        <div class="grid-cols-2 grid gap-4 md:mt-0 mt-2">
+          <DatePicker
+            v-model="departureDate"
+            label="Departure date"
+            :error="errors.departureDate"
+          />
+          <DatePicker
+            v-model="returnDate"
+            label="Return date"
+            :error="errors.returnDate"
           />
         </div>
-      </form>
-    </div>
-  </div>
+        <Input
+          v-model="description"
+          label="Description"
+          class="mt-2"
+          placeholder=""
+          required
+          :text="true"
+          :error="errors.description"
+        />
+        <Input
+          v-model="price"
+          label="Price"
+          class="mt-2"
+          placeholder=""
+          required
+          :number="true"
+          :error="errors.price"
+        />
+      </div>
+      <FileUploadButton
+        @on-file-change="onFileChange"
+        class="mt-2"
+        :error="errors.image"
+      />
+      <div class="w-full flex justify-end mt-2">
+        <SubmitButton
+          :disabled="formInvalid"
+          :label="submitLabel"
+          class="self-end"
+        />
+      </div>
+    </form>
+  </Card>
 </template>
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue';
@@ -66,7 +64,7 @@ import Input from '@/components/form/Input.vue';
 import DatePicker from '@/components/form/DatePicker.vue';
 import SubmitButton from '@/components/form/SubmitButton.vue';
 import FileUploadButton from '@/components/form/FileUploadButton.vue';
-import { ValidationError } from 'yup';
+import Card from '@/components/common/Card.vue';
 
 const title = ref('');
 const description = ref('');
@@ -76,6 +74,14 @@ const returnDate = ref(new Date().toISOString());
 const image = ref<String | null>(null);
 
 const props = defineProps({
+  submitLabel: {
+    type: String,
+    default: 'Submit',
+  },  
+  formTitle: {
+    type: String,
+    required: true,
+  },
   initValues: {
     type: Object,
     default: () => ({
@@ -90,16 +96,15 @@ const props = defineProps({
 });
 
 watch(
-  () => props,
-  (newProps) => {
-    title.value = newProps.initValues.title;
-    description.value = newProps.initValues.description;
-    price.value = newProps.initValues.price;
-    departureDate.value = newProps.initValues.departureDate;
-    returnDate.value = newProps.initValues.returnDate;
-    image.value = newProps.initValues.image;
-  },
-  { immediate: true }
+  ()=>props.initValues,
+  (initValues) => {
+    title.value = initValues.title;
+    description.value = initValues.description;
+    price.value = initValues.price;
+    departureDate.value = initValues.departureDate;
+    returnDate.value = initValues.returnDate;
+    image.value = initValues.image;
+  }
 );
 
 const errors = ref<{
@@ -123,7 +128,7 @@ const schema = yup.object().shape({
     .min(0.01, 'Amount must be greater than 0'),
   departureDate: yup.string().required('Departure date is required'),
   returnDate: yup.string().required('Return date is required'),
-  image: yup.string().required('Image is required'),
+  image: yup.string().nullable()
 });
 
 watch(
@@ -160,8 +165,7 @@ const formInvalid = computed(() => {
     !description.value ||
     !price.value ||
     !departureDate.value ||
-    !returnDate.value ||
-    !image.value
+    !returnDate.value
   );
 });
 const onFileChange = (newImg: String) => {

@@ -1,13 +1,15 @@
 <template>
   <div class="w-full flex flex-col justify-items-center items-center">
     <TravelForm
+      formTitle="Create travel"
+      submitLabel="Create travel"
       @submit="handleSubmit"
       :initValues="{
-        travelName: 'travelName',
-        description: 'description',
-        price: 123,
-        departureDate: new Date('2021-10-10T00:00:00Z').toISOString(),
-        returnDate: new Date('2021-10-10T00:00:00Z').toISOString(),
+        travelName: '',
+        description: '',
+        price: 0.01,
+        departureDate: new Date().toISOString(),
+        returnDate: new Date().toISOString(),
         image: null,
       }"
     />
@@ -25,7 +27,7 @@ const handleSubmit = async (e) => {
     price,
     departureDate,
     returnDate,
-    image: image,
+    image,
   });
   router.replace(`/travels/${id}/edit`);
 };

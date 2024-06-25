@@ -5,9 +5,11 @@ import {
   HttpCode,
   NotFoundException,
   Param,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { TravelsService } from './travels.service';
+import { CreateTravelDto } from './create-travel.dto';
 
 @Controller('travels')
 export class TravelsController {
@@ -19,6 +21,11 @@ export class TravelsController {
     return {
       id: newId,
     };
+  }
+
+  @Patch('/:id')
+  update(@Param('id') id: string, @Body() data: Partial<CreateTravelDto>) {
+    this.travelsService.update(id, data);
   }
 
   @Get('/:id')
