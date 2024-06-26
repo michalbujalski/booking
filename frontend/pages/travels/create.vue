@@ -17,7 +17,9 @@
 </template>
 <script setup lang="ts">
 import TravelForm from '@/components/travels/TravelForm.vue';
+import { useRouter } from 'vue-router';
 import { createTravel } from '../../api';
+
 const router = useRouter();
 const handleSubmit = async (e) => {
   const { title, description, price, departureDate, returnDate, image } = e;

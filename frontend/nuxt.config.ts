@@ -8,4 +8,6 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  buildModules: ['@nuxt/typescript-build'],
+  // Add the missing buildModules property
 })

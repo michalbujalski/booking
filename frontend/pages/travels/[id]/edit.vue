@@ -9,13 +9,19 @@
   </div>
 </template>
 <script setup lang="ts">
+import { ref, computed, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import TravelForm from '@/components/travels/TravelForm.vue';
 import type { Travel } from '@/models/travels/Travel';
 import { fetchTravelDetails, updateTravel } from '../../../api';
-
 const route = useRoute();
 const router = useRouter();
-const travelId = computed(() => route.params.id);
+const travelId = computed(() => {
+  if (Array.isArray(route.params.id)) {
+    return route.params.id[0];
+  }
+  return route.params.id;
+});
 const initValues = ref<Travel>({
   id: '',
   title: '',
@@ -30,7 +36,7 @@ const initValues = ref<Travel>({
 const { data, status, error } = await useAsyncData(
   'travelDetails',
   async () => {
-    return await fetchTravelDetails(route.params.id);
+    return await fetchTravelDetails(travelId.value);
   },
   {
     server: false,
@@ -41,13 +47,12 @@ watch(data, (newData) => {
   if (!newData) {
     return;
   }
-  console.log(newData)
   initValues.value = newData;
 });
 
 const handleSubmit = async (e) => {
   const { title, description, price, departureDate, returnDate, image } = e;
-  await updateTravel(travelId.value,{
+  await updateTravel(travelId.value, {
     title,
     description,
     price,
