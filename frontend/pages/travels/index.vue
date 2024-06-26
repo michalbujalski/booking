@@ -6,14 +6,15 @@
     >
       <nuxt-link
         :to="`/travels/${travel.id}`"
-        class=""
         v-for="travel in data"
         :key="travel.id"
       >
         <TravelListItem :travel="travel" />
       </nuxt-link>
     </div>
-    <div v-else-if="status === 'pending'">Loading...</div>
+    <div v-else-if="status === 'pending' || status === 'idle'">Loading...</div>
+    <div v-else-if="status === 'error'">{{ error }}</div>
+    <div v-else>Error</div>
   </div>
 </template>
 <script setup lang="ts">
