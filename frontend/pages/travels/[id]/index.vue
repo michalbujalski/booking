@@ -6,11 +6,12 @@
       <template #title>
         {{ data?.title }}
       </template>
-      <div class="flex flex-col">
-        <img v-if="data?.image" :src="data?.image" alst="image" />
+      <div class="flex flex-col w-full">
+        <img v-if="data?.image" :src="data?.image" alst="image" class="max-w-sm self-center"/>
         <img
           v-else
           src="~/assets/img/placeholder.png"
+          class="max-w-sm self-center"
           alt="travel image"
         />
         <div class="flex flex-row-reverse">
@@ -21,7 +22,7 @@
             <img src="/img/ic_delete.svg" />
           </RoundedButton>
         </div>
-        <div v-if="data" class="grid grid-cols-2 gap-1">
+        <div v-if="data" class="grid grid-cols-2 lg:grid-cols-4 mt-4 gap-1">
           <div class="flex flex-col">
             <ItemLabel>Departure date</ItemLabel>
             <div class="text-md mt-1">
