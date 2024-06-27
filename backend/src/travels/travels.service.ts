@@ -49,7 +49,6 @@ export class TravelsService {
 
   update(id: string, data: Partial<CreateTravelDto>) {
     const travel = this.getDetails(id);
-    console.log(travel, data);
     if (!travel) {
       return;
     }

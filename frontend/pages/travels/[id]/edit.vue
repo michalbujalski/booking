@@ -13,7 +13,8 @@ import { ref, computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import TravelForm from '@/components/travels/TravelForm.vue';
 import type { Travel } from '@/models/travels/Travel';
-import { fetchTravelDetails, updateTravel } from '../../../api';
+import { updateTravel } from '../../../api';
+import { useTravelDetails } from '~/hooks/useTravelDetails';
 const route = useRoute();
 const router = useRouter();
 const travelId = computed(() => {
@@ -22,6 +23,7 @@ const travelId = computed(() => {
   }
   return route.params.id;
 });
+
 const initValues = ref<Travel>({
   id: '',
   title: '',
@@ -33,21 +35,26 @@ const initValues = ref<Travel>({
   image: null,
 });
 
-const { data, status, error } = await useAsyncData(
+const { load } = useTravelDetails();
+
+const { data } = await useAsyncData(
   'travelDetails',
   async () => {
-    return await fetchTravelDetails(travelId.value);
+    return await load(route.params.id.toString());
   },
   {
     server: false,
     watch: [route],
   }
 );
+
 watch(data, (newData) => {
   if (!newData) {
     return;
   }
   initValues.value = newData;
+}, {
+  immediate: true,
 });
 
 const handleSubmit = async (e) => {

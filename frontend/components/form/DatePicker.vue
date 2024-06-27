@@ -15,7 +15,7 @@
 </template>
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import OutlineButton from '@/components/form/OutlineButton.vue';
+import OutlineButton from '@/components/common/OutlineButton.vue';
 import ErrorField from '@/components/form/ErrorField.vue';
 import { DatePicker as VCalendarDatePicker } from 'v-calendar';
 import { format } from 'date-fns';

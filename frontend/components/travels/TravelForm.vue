@@ -73,30 +73,21 @@ const departureDate = ref(new Date().toISOString());
 const returnDate = ref(new Date().toISOString());
 const image = ref<String | null>(null);
 
-const props = defineProps({
-  submitLabel: {
-    type: String,
-    default: 'Submit',
-  },  
-  formTitle: {
-    type: String,
-    required: true,
-  },
+const props = defineProps<{
+  submitLabel: string;
+  formTitle: string;
   initValues: {
-    type: Object,
-    default: () => ({
-      title: '',
-      description: '',
-      price: 100,
-      departureDate: new Date(),
-      returnDate: new Date('2024-05-24'),
-      image: null,
-    }),
-  },
-});
+    title: string;
+    description: string;
+    price: number;
+    departureDate: string;
+    returnDate: string;
+    image: string | null;
+  };
+}>();
 
 watch(
-  ()=>props.initValues,
+  () =>  props.initValues,
   (initValues) => {
     title.value = initValues.title;
     description.value = initValues.description;
@@ -104,6 +95,9 @@ watch(
     departureDate.value = initValues.departureDate;
     returnDate.value = initValues.returnDate;
     image.value = initValues.image;
+  },{
+    immediate: true
+  
   }
 );
 
@@ -128,7 +122,7 @@ const schema = yup.object().shape({
     .min(0.01, 'Amount must be greater than 0'),
   departureDate: yup.string().required('Departure date is required'),
   returnDate: yup.string().required('Return date is required'),
-  image: yup.string().nullable()
+  image: yup.string().nullable(),
 });
 
 watch(
