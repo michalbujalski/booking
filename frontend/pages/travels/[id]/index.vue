@@ -1,7 +1,5 @@
 <template>
   <div>
-    {{ route.params.id }}
-
     <Card>
       <template #title>
         {{ data?.title }}
@@ -11,7 +9,7 @@
         <img
           v-else
           src="~/assets/img/placeholder.png"
-          class="max-w-sm self-center"
+          class="max-w-sm justify-self-start self-center"
           alt="travel image"
         />
         <div class="flex flex-row-reverse">
