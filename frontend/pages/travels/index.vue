@@ -1,12 +1,13 @@
 <template>
   <div>
+    <SearchForm />
     <div
       v-if="status === 'success'"
       class="px-8 py-2 grid sm:grid-cols-1 md:grid-cols-2 gap-4"
     >
       <nuxt-link
         :to="`/travels/${travel.id}`"
-        v-for="travel in data"
+        v-for="travel in filteredData"
         :key="travel.id"
       >
         <TravelListItem :travel="travel" />
@@ -19,9 +20,50 @@
   </div>
 </template>
 <script setup lang="ts">
-import TravelListItem from '@/components/travels/TravelListItem.vue';
+import TravelListItem from '~/components/travels/TravelListItem.vue';
+import SearchForm from '~/components/travels/SearchForm.vue';
 import AddButton from '~/components/common/AddButton.vue';
 import { fetchTravels } from '../../api';
+import { computed, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import type { Travel } from '~/models/travels/Travel';
+
+const route = useRoute();
+
+watch(
+  () => route.query,
+  (newQuery) => {
+    const { search, departureDate, returnDate } = newQuery;
+    console.log(search, departureDate, returnDate);
+  }
+);
+
+const filteredData = computed(() => {
+  const { search, departureDate, returnDate } = route.query;
+  if (!data.value) return [];
+  let filtered = data.value;
+  if (search) {
+    filtered = filtered.filter((travel: Travel) =>
+      travel.title.toLowerCase().includes(search.toString().toLowerCase())
+    );
+    console.log(filtered)
+  }
+  if (departureDate) {
+    const dd = Date.parse(departureDate.toString());
+    filtered = filtered.filter((travel: Travel) => {
+      const tdd = Date.parse(travel.departureDate);
+      return dd >= tdd;
+    });
+  }
+  if(returnDate){
+    const rd = Date.parse(returnDate.toString());
+    filtered = filtered.filter((travel:Travel)=>{
+      const trd = Date.parse(travel.returnDate);
+      return rd <= trd
+    })
+  }
+  return filtered
+});
 
 const { data, status, error } = await useAsyncData(
   'travelslist',

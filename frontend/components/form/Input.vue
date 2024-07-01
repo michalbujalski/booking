@@ -7,6 +7,7 @@
     <input
       v-if="!text"
       :type="number ? 'number' : 'text'"
+      step="0.01"
       id="input"
       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
       :placeholder="placeholder"
@@ -26,19 +27,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import ErrorField from '@/components/form/ErrorField.vue';
-const model = defineModel();
-const { label, placeholder, text, number, error } = defineProps({
-  label: String,
-  placeholder: String,
-  error: String,
-  number: {
-    type: Boolean,
-    default: false,
-  },
-  text: {
-    type: Boolean,
-    default: false,
-  },
-});
+import ErrorField from '~/components/form/ErrorField.vue';
+const model = defineModel<string | number>();
+const { label, placeholder, text, number, error } = defineProps<{
+  label: string;
+  placeholder: string;
+  error: string | undefined;
+  number?: boolean;
+  text?: boolean;
+}>();
 </script>

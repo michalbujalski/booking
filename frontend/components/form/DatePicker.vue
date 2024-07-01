@@ -1,10 +1,13 @@
 <template>
-  <div class="relative">
-    <p class="block mb-2 text-sm font-medium text-gray-900">{{ label }}</p>
-    <OutlineButton :label="dateLabel" @click="toggleDate" />
+  <div class="relative w-full" v-on-click-outside="() => (show = false)">
+    <p class="block text-sm font-medium text-gray-900" :class="{
+      'mb-2':label
+    }">{{ label }}</p>
+    <OutlineButton class="w-full" @click="toggleDate">{{ dateLabel || placeholder }}</OutlineButton>
     <VCalendarDatePicker
       v-if="show"
-      v-model.string="model"
+      v-model="model"
+      mode="date"
       v-bind="{ ...attrs, ...$attrs }"
       class="!absolute left-[0px] top-[70px]"
       @close="show = false"
@@ -15,20 +18,25 @@
 </template>
 <script setup lang="ts">
 import { ref, watch } from 'vue';
+import { vOnClickOutside } from '@vueuse/components';
 import OutlineButton from '@/components/common/OutlineButton.vue';
 import ErrorField from '@/components/form/ErrorField.vue';
 import { DatePicker as VCalendarDatePicker } from 'v-calendar';
 import { format } from 'date-fns';
 import 'v-calendar/dist/style.css';
 const model = defineModel<string>();
-const { label, error } = defineProps({
-  label: String,
-  error: String,
-});
+
+const { label, error, placeholder } = defineProps<{
+  label?: string;
+  error?: string;
+  placeholder?: string;
+}>();
+
 const attrs = {
   transparent: false,
   borderless: false,
 };
+
 const show = ref(false);
 const closeListener = (e: KeyboardEvent) => {
   if (e.key === 'Escape') {
@@ -47,9 +55,9 @@ const dateLabel = ref('');
 watch(
   model,
   (newDate) => {
-    if (newDate) {
-      dateLabel.value = format(Date.parse(newDate), 'yyyy-MM-dd');
-    }
+    // if () {
+      dateLabel.value = newDate ? format(Date.parse(newDate), 'yyyy-MM-dd') : null;
+    // }
     show.value = false;
   },
   {
