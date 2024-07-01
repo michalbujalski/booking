@@ -15,10 +15,12 @@
     <div v-else-if="status === 'pending' || status === 'idle'">Loading...</div>
     <div v-else-if="status === 'error'">{{ error }}</div>
     <div v-else>Error</div>
+    <AddButton class="fixed bottom-8 right-8" @click="$router.push('/travels/create')">Create travel</AddButton>
   </div>
 </template>
 <script setup lang="ts">
 import TravelListItem from '@/components/travels/TravelListItem.vue';
+import AddButton from '~/components/common/AddButton.vue';
 import { fetchTravels } from '../../api';
 
 const { data, status, error } = await useAsyncData(
