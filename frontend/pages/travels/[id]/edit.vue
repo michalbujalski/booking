@@ -32,7 +32,7 @@ const initValues = ref<Travel>({
   departureDate: new Date().toISOString(),
   returnDate: new Date().toISOString(),
   rating: 0,
-  image: null,
+  image: null
 });
 
 const { load } = useTravelDetails();
@@ -67,6 +67,6 @@ const handleSubmit = async (e) => {
     returnDate,
     image,
   });
-  router.replace(`/travels/${travelId.value}/edit`);
+  router.replace(`/travels/${travelId.value}`);
 };
 </script>

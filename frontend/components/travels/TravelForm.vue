@@ -9,7 +9,7 @@
           v-model="title"
           label="Travel name"
           placeholder=""
-          :error="errors.title"
+          :error="errors.title || ''"
         />
         <div class="grid-cols-2 grid gap-4 md:mt-0 mt-2">
           <DatePicker
@@ -68,7 +68,7 @@ import Card from '@/components/common/Card.vue';
 
 const title = ref('');
 const description = ref('');
-const price = ref(100);
+const price = ref<number>(100);
 const departureDate = ref(new Date().toISOString());
 const returnDate = ref(new Date().toISOString());
 const image = ref<String | null>(null);
@@ -97,7 +97,6 @@ watch(
     image.value = initValues.image;
   },{
     immediate: true
-  
   }
 );
 

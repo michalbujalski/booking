@@ -5,7 +5,7 @@
       submitLabel="Create travel"
       @submit="handleSubmit"
       :initValues="{
-        travelName: '',
+        title: '',
         description: '',
         price: 0.01,
         departureDate: new Date().toISOString(),
@@ -31,6 +31,6 @@ const handleSubmit = async (e) => {
     returnDate,
     image,
   });
-  router.replace(`/travels/${id}/edit`);
+  router.replace(`/travels/${id}`);
 };
 </script>
