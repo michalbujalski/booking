@@ -12,7 +12,7 @@ export const createTravel = async (form: CreateTravelForm) => {
 };
 
 export const updateTravel = async (id: string, form: Partial<CreateTravelForm>) => {
-  await api.patch(`/travels/${id}`, form);
+  return api.patch(`/travels/${id}`, form);
 }
 
 export const fetchTravels = async () => {
