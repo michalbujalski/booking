@@ -55,9 +55,7 @@ const filtered = computed(() => {
     isSelected.value = false;
     return [];
   }
-  return data.filter((item) =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  return data.filter((item) =>item.title.toLowerCase().includes(searchQuery.toLowerCase()))
 });
 
 watch(filtered, (filtered) => {

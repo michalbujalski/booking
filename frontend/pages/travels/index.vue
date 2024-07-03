@@ -30,12 +30,6 @@ import type { Travel } from '~/models/travels/Travel';
 
 const route = useRoute();
 
-watch(
-  () => route.query,
-  (newQuery) => {
-    const { search, departureDate, returnDate } = newQuery;  }
-);
-
 const filteredData = computed(() => {
   const { search, departureDate, returnDate } = route.query;
   if (!data.value) return [];
