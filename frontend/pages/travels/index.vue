@@ -33,9 +33,7 @@ const route = useRoute();
 watch(
   () => route.query,
   (newQuery) => {
-    const { search, departureDate, returnDate } = newQuery;
-    console.log(search, departureDate, returnDate);
-  }
+    const { search, departureDate, returnDate } = newQuery;  }
 );
 
 const filteredData = computed(() => {
@@ -46,7 +44,6 @@ const filteredData = computed(() => {
     filtered = filtered.filter((travel: Travel) =>
       travel.title.toLowerCase().includes(search.toString().toLowerCase())
     );
-    console.log(filtered)
   }
   if (departureDate) {
     const dd = Date.parse(departureDate.toString());

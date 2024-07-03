@@ -6,8 +6,8 @@ const error = ref<string | null>(null);
 
 export const useTravelDetails = () => {
   const load = async (id: string) => {
-    if(travel.value){
-      return travel.value
+    if (travel.value) {
+      return travel.value;
     }
     try {
       travel.value = await fetchTravelDetails(id);

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label for="input" class="block mb-2 text-sm font-medium text-gray-900">{{
+    <label v-if="label" for="input" class="block mb-2 text-sm font-medium text-gray-900">{{
       label
     }}</label>
 
@@ -30,9 +30,9 @@
 import ErrorField from '~/components/form/ErrorField.vue';
 const model = defineModel<string | number>();
 const { label, placeholder, text, number, error } = defineProps<{
-  label: string;
+  label?: string;
   placeholder: string;
-  error: string | undefined;
+  error?: string | undefined;
   number?: boolean;
   text?: boolean;
 }>();

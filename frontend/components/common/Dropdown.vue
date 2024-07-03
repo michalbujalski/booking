@@ -20,15 +20,14 @@
         </svg>
       </div>
     </OutlineButton>
+    <ErrorField :error="error" />
     <div
-      id="dropdownHover"
       :class="{ hidden: !isOpen }"
       v-on-click-outside="() => isOpen = false"
       class="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 mt-2"
     >
       <ul
         class="py-2 text-sm text-gray-700 border border-gray-300 hover:bg-primary rounded-lg"
-        aria-labelledby="dropdownHoverButton"
       >
         <li
           v-for="option in options"
@@ -44,15 +43,17 @@
 </template>
 <script setup lang="ts">
 import { vOnClickOutside } from '@vueuse/components';
-import OutlineButton from '~/components/common/OutlineButton.vue';
+import OutlineButton from '@/components/common/OutlineButton.vue';
+import ErrorField from '@/components/form/ErrorField.vue';
 import { ref, watch } from 'vue';
 const { label, options, placeholder } = defineProps<{
-  label: string;
+  label: string | undefined;
   options: {
     label: string;
     command: (id: string) => unknown;
   }[];
   placeholder: string;
+  error?: string;
 }>();
 const isOpen = ref(false);
 

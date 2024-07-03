@@ -87,7 +87,7 @@ const props = defineProps<{
 }>();
 
 watch(
-  () =>  props.initValues,
+  () => props.initValues,
   (initValues) => {
     title.value = initValues.title;
     description.value = initValues.description;
@@ -95,8 +95,9 @@ watch(
     departureDate.value = initValues.departureDate;
     returnDate.value = initValues.returnDate;
     image.value = initValues.image;
-  },{
-    immediate: true
+  },
+  {
+    immediate: true,
   }
 );
 
@@ -140,6 +141,7 @@ watch(
         { abortEarly: false }
       );
       errors.value = {};
+      formInvalid.value = false;
     } catch (e: any) {
       const validationErrors: Record<string, string> = {};
       e.inner.forEach((error: any) => {
@@ -152,15 +154,8 @@ watch(
   }
 );
 
-const formInvalid = computed(() => {
-  return (
-    !title.value ||
-    !description.value ||
-    !price.value ||
-    !departureDate.value ||
-    !returnDate.value
-  );
-});
+const formInvalid = ref(true);
+
 const onFileChange = (newImg: String) => {
   image.value = newImg;
 };

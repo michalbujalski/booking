@@ -17,7 +17,8 @@
     "v-calendar": "^3.1.2",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "yup-phone-lite": "^2.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
