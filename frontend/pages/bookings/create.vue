@@ -14,6 +14,10 @@ import type { BookingForm as BookingFormModel } from '@/models/bookings/BookingF
 import { fetchTravels, createBooking } from '@/api';
 import { useRouter } from 'vue-router';
 
+definePageMeta({
+  layout: 'detail',
+})
+
 const router = useRouter();
 
 const { data, status, error } = await useAsyncData<Travel[]>(

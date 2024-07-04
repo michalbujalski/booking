@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-4">
     <LoadingScreen :status="status">
       <BookingsList :data="data" />
       <template #error>{{ error }}</template>
@@ -12,9 +12,11 @@ import LoadingScreen from '@/components/common/LoadingScreen.vue';
 import BookingsList from '@/components/bookings/BookingsList.vue';
 import AddButton from '@/components/common/AddButton.vue';
 import { fetchBookings, fetchTravelDetails } from '@/api';
-import { watch } from 'vue';
-import type { Booking } from '@/models/bookings/Booking';
 import type { BookingListItemModel } from '@/models/bookings/BookingListItemModel';
+
+definePageMeta({
+  layout: 'home',
+})
 
 const { data, status, error } = await useAsyncData<BookingListItemModel[]>(
   'travelslist',

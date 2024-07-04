@@ -6,6 +6,10 @@ export default defineNuxtConfig({
       title: 'Booking',
     },
   },
+  routeRules: {
+    '/': { redirect: '/travels' },
+  },
+
   css: ['~/assets/css/main.css'],
   postcss: {
     plugins: {

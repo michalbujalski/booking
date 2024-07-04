@@ -59,6 +59,11 @@ import Card from '~/components/common/Card.vue';
 import RoundedButton from '~/components/common/RoundedButton.vue';
 import { deleteTravel } from '../../../api';
 import ItemLabel from '~/components/common/ItemLabel.vue';
+
+definePageMeta({
+  layout: 'detail',
+})
+
 const { open } = useConfirmationDialog();
 const route = useRoute();
 const router = useRouter();

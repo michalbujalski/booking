@@ -39,11 +39,11 @@ import { ref, watch, computed, nextTick } from 'vue';
 import { is } from 'date-fns/locale';
 
 const { data, modelValue } = defineProps<{
-  modelValue: TravelItem | null;
+  modelValue: TravelItem | undefined;
   data: TravelItem[];
 }>();
 const search = ref(modelValue?.title || '');
-const selectedTravel = ref<TravelItem>(modelValue);
+const selectedTravel = ref<TravelItem | undefined >(modelValue);
 const isOpen = ref(false);
 const isSelected = ref(false);
 
@@ -71,7 +71,7 @@ const handleSelectTravel = (id: string) => {
   selectedTravel.value = travel;
   emit('update:modelValue', travel);
   isOpen.value = false;
-  search.value = travel.title;
+  search.value = travel?.title || '';
   isSelected.value = true;
 };
 
