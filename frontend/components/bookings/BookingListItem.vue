@@ -33,7 +33,7 @@
     </span>
     <span>
       <ItemLabel>Price</ItemLabel>
-      <div>{{ booking.price }}</div>
+      <div>{{ formattedPrice }}</div>
     </span>
     <span class="sm:max-lg:hidden inline">
       <ItemLabel>Departure date</ItemLabel>
@@ -52,7 +52,13 @@
 <script lang="ts" setup>
 import ItemLabel from '@/components/common/ItemLabel.vue';
 import type { BookingListItemModel } from '@/models/bookings/BookingListItemModel';
+import { formatCurrency } from '@/helpers/formatters/currencyFormatter';
+import { computed } from 'vue';
 const { booking } = defineProps<{
   booking: BookingListItemModel;
 }>();
+
+const formattedPrice = computed(()=>{
+  return formatCurrency(booking.price, 'USD');
+})
 </script>

@@ -19,7 +19,7 @@
     </span>
     <span>
       <ItemLabel>Price</ItemLabel>
-      <div>{{ travel.price }}</div>
+      <div>{{ formattedPrice }}</div>
     </span>
     <span>
       <ItemLabel>Rating</ItemLabel>
@@ -41,6 +41,9 @@
 </template>
 <script setup lang="ts">
 import ItemLabel from '@/components/common/ItemLabel.vue';
+import { formatCurrency } from '@/helpers/formatters/currencyFormatter';
+import { computed } from 'vue';
+
 const { travel } = defineProps<{
   travel: {
     title: string;
@@ -50,4 +53,7 @@ const { travel } = defineProps<{
     rating: number;
   };
 }>();
+const formattedPrice = computed(() => {
+  return formatCurrency(travel.price, 'USD');
+});
 </script>
