@@ -20,13 +20,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import TravelListItem from '~/components/travels/TravelListItem.vue';
-import SearchForm from '~/components/travels/SearchForm.vue';
-import AddButton from '~/components/common/AddButton.vue';
+import TravelListItem from '@/components/travels/TravelListItem.vue';
+import SearchForm from '@/components/travels/SearchForm.vue';
+import AddButton from '@/components/common/AddButton.vue';
 import { fetchTravels } from '../../api';
 import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import type { Travel } from '~/models/travels/Travel';
+import type { Travel } from '@/models/travels/Travel';
 
 const route = useRoute();
 

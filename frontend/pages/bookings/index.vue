@@ -4,11 +4,13 @@
       <BookingsList :data="data" />
       <template #error>{{ error }}</template>
     </LoadingScreen>
+    <AddButton class="fixed bottom-8 right-8" @click="$router.push('/bookings/create')">Create booking</AddButton>
   </div>
 </template>
 <script setup lang="ts">
 import LoadingScreen from '@/components/common/LoadingScreen.vue';
 import BookingsList from '@/components/bookings/BookingsList.vue';
+import AddButton from '@/components/common/AddButton.vue';
 import { fetchBookings, fetchTravelDetails } from '@/api';
 import { watch } from 'vue';
 import type { Booking } from '@/models/bookings/Booking';
