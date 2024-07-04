@@ -25,6 +25,16 @@ export class TravelsService {
       price: 1499.01,
       image: null,
     },
+    {
+      id: '3',
+      title: 'Tokyo',
+      rating: 4.8,
+      description: 'The city of lights',
+      departureDate: '2024-09-01',
+      returnDate: '2024-09-15',
+      price: 1699.01,
+      image: null,
+    },
   ];
 
   create(travelDto: CreateTravelDto): string {

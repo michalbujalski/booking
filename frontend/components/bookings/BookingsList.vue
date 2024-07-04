@@ -1,20 +1,20 @@
 <template>
   <div>
-    <div v-for="booking in data" :key="booking.id">
-    {{ booking.id }}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+      <BookingListItem
+        v-for="booking in data"
+        :key="booking.id"
+        :booking="booking"
+      />
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import type { Booking } from '@/models/bookings/Booking';
+import type { BookingListItemModel } from '@/models/bookings/BookingListItemModel';
+import BookingListItem from '@/components/bookings/BookingListItem.vue';
 import { watch } from 'vue';
 const { data } = defineProps<{
-  data: Booking[];
+  data: BookingListItemModel[];
 }>();
 
-watch(data, (newData) => {
-  console.log(newData);
-},{
-  immediate: true
-});
 </script>
