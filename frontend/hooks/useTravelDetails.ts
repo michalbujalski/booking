@@ -5,8 +5,8 @@ const travel = ref<Travel | null>(null);
 const error = ref<string | null>(null);
 
 export const useTravelDetails = () => {
-  const load = async (id: string) => {
-    if (travel.value) {
+  const load = async (id: string, invalidate: boolean = false) => {
+    if (travel.value && !invalidate) {
       return travel.value;
     }
     try {

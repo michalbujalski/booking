@@ -50,7 +50,6 @@ const formInvalid = ref(true)
 watch(
   [paymentMethod, notes],
   ([paymentMethod, notes]) => {
-    console.log(paymentMethod, notes)
     emit('update:modelValue', {
       paymentMethod: paymentMethod,
       notes: notes
