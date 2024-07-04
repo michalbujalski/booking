@@ -1,21 +1,21 @@
 <template>
   <div>
     <SearchForm />
-    <div
-      v-if="status === 'success'"
-      class="px-8 py-2 grid sm:grid-cols-1 md:grid-cols-2 gap-4"
-    >
-      <nuxt-link
-        :to="`/travels/${travel.id}`"
-        v-for="travel in filteredData"
-        :key="travel.id"
+    <LoadingScreen :status="status">
+      <div
+        v-if="status === 'success'"
+        class="px-8 py-2 grid sm:grid-cols-1 md:grid-cols-2 gap-4"
       >
-        <TravelListItem :travel="travel" />
-      </nuxt-link>
-    </div>
-    <div v-else-if="status === 'pending' || status === 'idle'">Loading...</div>
-    <div v-else-if="status === 'error'">{{ error }}</div>
-    <div v-else>Error</div>
+        <nuxt-link
+          :to="`/travels/${travel.id}`"
+          v-for="travel in filteredData"
+          :key="travel.id"
+        >
+          <TravelListItem :travel="travel" />
+        </nuxt-link>
+      </div>
+      <template #error>{{ error }}</template>
+    </LoadingScreen>
     <AddButton
       class="fixed bottom-8 right-8"
       @click="$router.push('/travels/create')"
@@ -27,10 +27,11 @@
 import TravelListItem from '@/components/travels/TravelListItem.vue';
 import SearchForm from '@/components/travels/SearchForm.vue';
 import AddButton from '@/components/common/AddButton.vue';
+import LoadingScreen from '@/components/common/LoadingScreen.vue';
 import { fetchTravels } from '../../api';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import type { Travel } from '@/models/travels/Travel';
+import { filterData } from '@/helpers/filter';
 
 definePageMeta({
   layout: 'home',
@@ -39,29 +40,15 @@ definePageMeta({
 const route = useRoute();
 
 const filteredData = computed(() => {
-  const { search, departureDate, returnDate } = route.query;
+  const { search, departureDate, returnDate, selectedRating } = route.query;
   if (!data.value) return [];
-  let filtered = data.value;
-  if (search) {
-    filtered = filtered.filter((travel: Travel) =>
-      travel.title.toLowerCase().includes(search.toString().toLowerCase())
-    );
-  }
-  if (departureDate) {
-    const dd = Date.parse(departureDate.toString());
-    filtered = filtered.filter((travel: Travel) => {
-      const tdd = Date.parse(travel.departureDate);
-      return dd <= tdd;
-    });
-  }
-  if (returnDate) {
-    const rd = Date.parse(returnDate.toString());
-    filtered = filtered.filter((travel: Travel) => {
-      const trd = Date.parse(travel.returnDate);
-      return rd >= trd;
-    });
-  }
-  return filtered;
+
+  return filterData(data.value, {
+    search : search as string,
+    departureDate : departureDate as string,
+    returnDate: returnDate as string,
+    selectedRating: selectedRating as string,
+  });
 });
 
 const { data, status, error } = await useAsyncData(
