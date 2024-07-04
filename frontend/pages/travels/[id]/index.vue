@@ -72,7 +72,7 @@ const { load } = useTravelDetails();
 const { data } = await useAsyncData(
   'travelDetails',
   async () => {
-    return await load(route.params.id.toString());
+    return await load(route.params.id.toString(), true);
   },
   {
     server: false,
