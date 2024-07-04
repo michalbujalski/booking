@@ -28,13 +28,13 @@
     <span class="sm:max-lg:hidden inline">
       <ItemLabel>Departure date</ItemLabel>
       <div class="text-xs">
-        {{ travel.departureDate }}
+        {{ formattedDepartureDate }}
       </div>
     </span>
     <span class="sm:max-lg:hidden inline">
       <ItemLabel>Return date</ItemLabel>
       <div class="text-xs">
-        {{ travel.returnDate }}
+        {{ formattedReturnDate }}
       </div>
     </span>
   </div>
@@ -43,6 +43,15 @@
 import ItemLabel from '@/components/common/ItemLabel.vue';
 import { formatCurrency } from '@/helpers/formatters/currencyFormatter';
 import { computed } from 'vue';
+import { formatDate } from '@/helpers/formatters/dateFormatter';
+
+const formattedDepartureDate = computed(()=>{
+  return formatDate(travel.departureDate);
+})
+
+const formattedReturnDate = computed(()=>{
+  return formatDate(travel.returnDate);
+})
 
 const { travel } = defineProps<{
   travel: {
