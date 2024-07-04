@@ -17,7 +17,7 @@ export class TravelsController {
   constructor(private travelsService: TravelsService) {}
   @Post('/')
   @HttpCode(201)
-  create(@Body() data) {
+  create(@Body() data: CreateTravelDto) {
     const newId = this.travelsService.create(data);
     return {
       id: newId,

@@ -24,11 +24,11 @@ export class TravelsService {
       returnDate: '2024-08-15',
       price: 1499.01,
       image: null,
-    }
+    },
   ];
 
   create(travelDto: CreateTravelDto): string {
-    const id = String(this.travels.length + 1);
+    const id = Date.now().toString();
     this.travels.push({
       ...travelDto,
       id,
