@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  app: {
+    head: {
+      title: 'Booking',
+    },
+  },
   css: ['~/assets/css/main.css'],
   postcss: {
     plugins: {
@@ -8,6 +13,5 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  buildModules: ['@nuxt/typescript-build'],
   // Add the missing buildModules property
-})
+});
