@@ -8,7 +8,7 @@ export class TravelsService {
     {
       id: '1',
       title: 'Paris',
-      rating: 4.5,
+      rating: 3.5,
       description: 'The city of love',
       departureDate: '2024-07-01',
       returnDate: '2024-07-15',
@@ -28,7 +28,7 @@ export class TravelsService {
     {
       id: '3',
       title: 'Tokyo',
-      rating: 4.8,
+      rating: 1.8,
       description: 'The city of lights',
       departureDate: '2024-09-01',
       returnDate: '2024-09-15',
