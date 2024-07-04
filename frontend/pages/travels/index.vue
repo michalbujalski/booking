@@ -16,7 +16,11 @@
     <div v-else-if="status === 'pending' || status === 'idle'">Loading...</div>
     <div v-else-if="status === 'error'">{{ error }}</div>
     <div v-else>Error</div>
-    <AddButton class="fixed bottom-8 right-8" @click="$router.push('/travels/create')">Create travel</AddButton>
+    <AddButton
+      class="fixed bottom-8 right-8"
+      @click="$router.push('/travels/create')"
+      >Create travel</AddButton
+    >
   </div>
 </template>
 <script setup lang="ts">
@@ -30,7 +34,7 @@ import type { Travel } from '@/models/travels/Travel';
 
 definePageMeta({
   layout: 'home',
-})
+});
 
 const route = useRoute();
 
@@ -47,17 +51,17 @@ const filteredData = computed(() => {
     const dd = Date.parse(departureDate.toString());
     filtered = filtered.filter((travel: Travel) => {
       const tdd = Date.parse(travel.departureDate);
-      return dd >= tdd;
+      return dd <= tdd;
     });
   }
-  if(returnDate){
+  if (returnDate) {
     const rd = Date.parse(returnDate.toString());
-    filtered = filtered.filter((travel:Travel)=>{
+    filtered = filtered.filter((travel: Travel) => {
       const trd = Date.parse(travel.returnDate);
-      return rd <= trd
-    })
+      return rd >= trd;
+    });
   }
-  return filtered
+  return filtered;
 });
 
 const { data, status, error } = await useAsyncData(
