@@ -8,7 +8,7 @@
         <img v-if="data?.image" :src="data?.image" alst="image" class="max-w-sm self-center"/>
         <img
           v-else
-          src="~/assets/img/placeholder.png"
+          src="@/assets/img/placeholder.png"
           class="max-w-sm justify-self-start self-center"
           alt="travel image"
         />
@@ -53,12 +53,12 @@
 </template>
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router';
-import { useConfirmationDialog } from '~/hooks/useConfirmationDialog';
-import { useTravelDetails } from '~/hooks/useTravelDetails';
-import Card from '~/components/common/Card.vue';
-import RoundedButton from '~/components/common/RoundedButton.vue';
-import { deleteTravel } from '../../../api';
-import ItemLabel from '~/components/common/ItemLabel.vue';
+import { useConfirmationDialog } from '@/hooks/useConfirmationDialog';
+import { useTravelDetails } from '@/hooks/useTravelDetails';
+import Card from '@/components/common/Card.vue';
+import RoundedButton from '@/components/common/RoundedButton.vue';
+import { deleteTravel } from '@/api';
+import ItemLabel from '@/components/common/ItemLabel.vue';
 
 definePageMeta({
   layout: 'detail',

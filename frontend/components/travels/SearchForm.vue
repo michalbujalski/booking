@@ -37,10 +37,9 @@
 </template>
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import Input from '~/components/form/Input.vue';
-import DatePicker from '~/components/form/DatePicker.vue';
-import Dropdown from '~/components/common/Dropdown.vue';
-import RoundedButton from '~/components/common/RoundedButton.vue';
+import DatePicker from '@/components/form/DatePicker.vue';
+import Dropdown from '@/components/common/Dropdown.vue';
+import RoundedButton from '@/components/common/RoundedButton.vue';
 import { useRouter } from 'vue-router';
 
 const search = ref();

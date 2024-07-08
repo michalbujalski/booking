@@ -27,7 +27,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import ErrorField from '~/components/form/ErrorField.vue';
+import ErrorField from '@/components/form/ErrorField.vue';
 const model = defineModel<string | number>();
 const { label, placeholder, text, number, error } = defineProps<{
   label?: string;

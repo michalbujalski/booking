@@ -1,5 +1,5 @@
-import { fetchTravelDetails } from '~/api';
-import type { Travel } from '~/models/travels/Travel';
+import { fetchTravelDetails } from '@/api';
+import type { Travel } from '@/models/travels/Travel';
 
 const travel = ref<Travel | null>(null);
 const error = ref<string | null>(null);

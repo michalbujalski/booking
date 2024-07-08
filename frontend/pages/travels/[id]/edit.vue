@@ -13,8 +13,8 @@ import { ref, computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import TravelForm from '@/components/travels/TravelForm.vue';
 import type { Travel } from '@/models/travels/Travel';
-import { updateTravel } from '../../../api';
-import { useTravelDetails } from '~/hooks/useTravelDetails';
+import { updateTravel } from '@/api';
+import { useTravelDetails } from '@/hooks/useTravelDetails';
 const route = useRoute();
 const router = useRouter();
 const travelId = computed(() => {

@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { redirect: '/travels' },
   },
-  css: ['~/assets/css/main.css'],
+  css: ['@/assets/css/main.css'],
   postcss: {
     plugins: {
       tailwindcss: {},
