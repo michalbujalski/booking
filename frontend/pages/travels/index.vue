@@ -28,7 +28,7 @@ import TravelListItem from '@/components/travels/TravelListItem.vue';
 import SearchForm from '@/components/travels/SearchForm.vue';
 import AddButton from '@/components/common/AddButton.vue';
 import LoadingScreen from '@/components/common/LoadingScreen.vue';
-import { fetchTravels } from '../../api';
+import { fetchTravels } from '@/api';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { filterData } from '@/helpers/filter';
