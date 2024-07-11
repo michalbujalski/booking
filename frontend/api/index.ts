@@ -12,9 +12,12 @@ export const createTravel = async (form: CreateTravelForm) => {
   return data;
 };
 
-export const updateTravel = async (id: string, form: Partial<CreateTravelForm>) => {
+export const updateTravel = async (
+  id: string,
+  form: Partial<CreateTravelForm>
+) => {
   return api.patch(`/travels/${id}`, form);
-}
+};
 
 export const fetchTravels = async () => {
   const { data } = await api.get<Travel[]>('/travels');
@@ -28,7 +31,7 @@ export const fetchTravelDetails = async (id: string) => {
 
 export const deleteTravel = (id: string) => {
   return api.delete(`/travels/${id}`);
-}
+};
 
 export const createBooking = async (form: BookingForm) => {
   const { data } = await api.post('/bookings', form);
@@ -38,4 +41,15 @@ export const createBooking = async (form: BookingForm) => {
 export const fetchBookings = async () => {
   const { data } = await api.get('/bookings');
   return data;
-}
+};
+
+export const uploadImage = async (file: File) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  const { data } = await api.post<{ url: string }>('/upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return data.url;
+};

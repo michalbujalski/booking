@@ -55,7 +55,7 @@ const onChangeFileUpload = (e) => {
   imgSrc.value = URL.createObjectURL(file);
   const reader = new FileReader();
   reader.onloadend = () => {
-    emit('onFileChange', reader.result);
+    emit('onFileChange', e.target.files[0]);
   };
   reader.readAsDataURL(file);
 };

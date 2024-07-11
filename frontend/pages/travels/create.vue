@@ -18,22 +18,30 @@
 <script setup lang="ts">
 import TravelForm from '@/components/travels/TravelForm.vue';
 import { useRouter } from 'vue-router';
-import { createTravel } from '../../api';
+import { createTravel, uploadImage } from '@/api';
+import { CreateTravelForm } from '~/models/travels/CreateTravelForm';
 
 definePageMeta({
   layout: 'detail',
-})
+});
 
 const router = useRouter();
-const handleSubmit = async (e) => {
+const handleSubmit = async (
+  e: Omit<CreateTravelForm, 'image'> & { image: File | null }
+) => {
   const { title, description, price, departureDate, returnDate, image } = e;
+
+  let imageUrl = null;
+  if (image) {
+    imageUrl = await uploadImage(image);
+  }
   const { id } = await createTravel({
     title,
     description,
     price,
     departureDate,
     returnDate,
-    image,
+    image: imageUrl,
   });
   router.replace(`/travels/${id}`);
 };
