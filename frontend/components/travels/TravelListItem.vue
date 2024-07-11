@@ -10,11 +10,11 @@
     <span class="sm:max-lg:inline hidden">
       <ItemLabel>Departure date</ItemLabel>
       <div class="text-xs">
-        {{ travel.departureDate }}
+        {{ formattedDepartureDate }}
       </div>
       <ItemLabel>Return date</ItemLabel>
       <div class="text-xs">
-        {{ travel.returnDate }}
+        {{ formattedReturnDate }}
       </div>
     </span>
     <span>
