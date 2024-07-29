@@ -32,11 +32,13 @@ import { fetchTravels } from '@/api';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { filterData } from '@/helpers/filter';
+import { useErrorNotification } from '@/hooks/useErrorNotification';
+import { fallbackCall } from '@/helpers/fallbackCall';
 
 definePageMeta({
   layout: 'home',
 });
-
+const { open } = useErrorNotification();
 const route = useRoute();
 
 const filteredData = computed(() => {
@@ -44,8 +46,8 @@ const filteredData = computed(() => {
   if (!data.value) return [];
 
   return filterData(data.value, {
-    search : search as string,
-    departureDate : departureDate as string,
+    search: search as string,
+    departureDate: departureDate as string,
     returnDate: returnDate as string,
     selectedRating: selectedRating as string,
   });
@@ -53,7 +55,10 @@ const filteredData = computed(() => {
 
 const { data, status, error } = await useAsyncData(
   'travelslist',
-  async () => fetchTravels(),
+  () =>
+    fallbackCall(fetchTravels, (errorMsg: string) => {
+      open(errorMsg);
+    }),
   {
     server: false,
   }

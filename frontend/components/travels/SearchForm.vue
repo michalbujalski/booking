@@ -28,7 +28,11 @@
       /></RoundedButton>
     </div>
     <div class="flex items-center justify-content-center">
-      <Dropdown :label="selectedRating" :options="options" placeholder="Rating"/>
+      <Dropdown
+        :label="selectedRating"
+        :options="options"
+        placeholder="Rating"
+      />
       <RoundedButton @click="clearFilter('selectedRating')" class="mr-2"
         ><img src="/img/ic_close.svg"
       /></RoundedButton>
